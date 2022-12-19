@@ -1,13 +1,12 @@
 
 import streamlit as st
 import pandas as pd
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sb
 import plotly.express as px
 
-import folium
+
 
 def main():
     st.title('Hospital information')
@@ -19,7 +18,6 @@ def main():
 st.sidebar.title('상세정보')
 menu =["메뉴를 선택하세요.",'Data','EDA','Map']
 choice = st.sidebar.selectbox('전국 경기도 병원🚑 ',menu)
-
 
 
 
@@ -59,10 +57,12 @@ elif choice =='EDA' :
 
 
 elif choice == 'Map' :
-         df = pd.read_csv('data/hospcsv.csv')
-         df=df.rename(columns={'위도':'lat','경도':'lon'})
-         df2 = df.loc[ : , ['lat','lon']]
-       
+        df = pd.read_csv('data/hospcsv.csv')
+        df=df.rename(columns={'위도':'lat','경도':'lon'})
+        df2 = df.loc[ : , ['lat','lon']]
+        st.map(df2,zoom=1)
+
+        
 
 
 
@@ -102,8 +102,6 @@ choice = st.sidebar.selectbox('선택',menu)
 
 
 if choice != '시군명를 선택하세요.': 
-
-
         df = pd.read_csv('data/hospcsv.csv')
         df=df.drop(columns=['인허가일자','소재지우편번호','폐업일자','특수구급차대수','일반구급차대수','인허가취소일자','소재지도로명주소','허가병상수'])
         st.dataframe(df[df['시군명'].isin([choice])]) 
