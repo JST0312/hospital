@@ -62,8 +62,7 @@ elif choice == 'Map' :
          df = pd.read_csv('data/hospcsv.csv')
          df=df.rename(columns={'위도':'lat','경도':'lon'})
          df2 = df.loc[ : , ['lat','lon']]
-         st.map(df2 , zoom=300)
-
+       
 
 
 
@@ -151,7 +150,7 @@ choice=st.sidebar.image('https://media.istockphoto.com/id/1227544902/ko/%EC%82%A
 
 
 
-
+#시군명별로 그래프 만들기 
 
 if __name__ == '__main__' :
         main()
