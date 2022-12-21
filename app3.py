@@ -5,18 +5,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sb
 import plotly.express as px
-
-
-
+import altair as alt
 def main():
-    st.title('Hospital information')
-    video_file = open('data/video1.mp4' , 'rb')
-    st.video(video_file)
+    
+    
+    
+
+    
+
+    
+
    
 
 
-st.sidebar.title('상세정보')
-menu =["메뉴를 선택하세요.",'Data','EDA','Map']
+        st.sidebar.title('상세정보')
+menu =['Home','Data','EDA','Map']
 choice = st.sidebar.selectbox('전국 경기도 병원🚑 ',menu)
 
 
@@ -30,10 +33,14 @@ choice = st.sidebar.selectbox('전국 경기도 병원🚑 ',menu)
 
 
 
+if choice=='Home':
+        st.title('Hospital information')
+        video_file = open('data/video1.mp4' , 'rb')
+        st.video(video_file)
 
 
 
-if choice == 'Data' :
+elif choice == 'Data' :
         st.image('https://media.istockphoto.com/id/1291088795/ko/%EC%82%AC%EC%A7%84/ems-%EA%B5%AC%EA%B8%89%EB%8C%80%EC%9B%90%ED%8C%80%EC%9D%80-%EB%B6%80%EC%83%81%EB%8B%B9%ED%95%9C-%ED%99%98%EC%9E%90%EC%97%90%EA%B2%8C-%EC%9D%98%EB%A3%8C-%EB%8F%84%EC%9B%80%EC%9D%84-%EC%A0%9C%EA%B3%B5%ED%95%98%EA%B3%A0-%EB%93%A4%EA%B2%83%EC%97%90-%EC%8B%A4%EB%A0%A4-%EA%B5%AC%EA%B8%89%EC%B0%A8%EC%97%90-%EC%8B%A4%EB%A0%A4-%EA%B7%B8%EB%A5%BC-%EB%8D%B0%EB%A0%A4%EC%98%A4%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%8B%A0%EC%86%8D%ED%95%98%EA%B2%8C-%EB%B0%98%EC%9D%91%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9D%91%EA%B8%89-%EC%B9%98%EB%A3%8C-%EC%A1%B0%EC%88%98%EB%8A%94-%EA%B1%B0%EB%A6%AC%EC%97%90%EC%84%9C-%EA%B5%90%ED%86%B5-%EC%82%AC%EA%B3%A0-%ED%98%84%EC%9E%A5%EC%97%90.jpg?s=612x612&w=0&k=20&c=-OH7ox9Nsh6dtqUga3NbfHIxB4WryAIBvdunKpzKiiU=')
         df = pd.read_csv('data/hospcsv.csv')
         st.dataframe(df)
@@ -62,7 +69,19 @@ elif choice == 'Map' :
         df2 = df.loc[ : , ['lat','lon']]
         st.map(df2,zoom=1)
 
-        
+
+
+
+        df = pd.read_csv('data/hospcsv.csv')
+        column_list = df.columns[1:5]
+        st.subheader('컬럼 별 히스토그램')
+        histogram_column = st.selectbox('히스토그램 확인할 컬럼을 선택하세요',column_list)
+        my_bins = st.number_input('빈의 갯수를 입력하세요.',10,value = 10,step=1)
+        st.subheader('각 지역별 병원 차트')
+        fig6 = px.pie(df, '시군명',  title='병원 차트')
+        st.plotly_chart(fig6)
+       
+    
 
 
 
@@ -108,6 +127,9 @@ if choice != '시군명를 선택하세요.':
 
 elif choice =='메뉴':
         pass
+    
+    
+   
 
 elif choice=='병원':
         pass
