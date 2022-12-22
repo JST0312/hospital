@@ -6,29 +6,23 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import plotly.express as px
 import altair as alt
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
 def main():
-    
-    
-    
-
-    
-
-    
-
-   
-
-
-        st.sidebar.title('상세정보')
+        pass
+        
+        
+        
 menu =['Home','Data','EDA','Map']
-choice = st.sidebar.selectbox('전국 경기도 병원🚑 ',menu)
+st.sidebar.title('상세정보')
+choice = st.sidebar.selectbox('전국 경기도 병원🚑 ',menu) 
 
 
 
 
 
-
-
-    
 
 
 
@@ -61,6 +55,11 @@ elif choice =='EDA' :
        st.dataframe(min)
        st.text('최대 데이터')
        st.dataframe(max)
+       
+       selected_list = st.multiselect('원하는 컬럼을 선택하세요',df.columns)
+    
+    
+
 
 
 elif choice == 'Map' :
@@ -80,8 +79,18 @@ elif choice == 'Map' :
         st.subheader('각 지역별 병원 차트')
         fig6 = px.pie(df, '시군명',  title='병원 차트')
         st.plotly_chart(fig6)
-       
+        df = pd.read_csv('data/hospcsv.csv')   
+        selected_list = st.multiselect('원하는 컬럼을 선택하세요',df.columns)
     
+        if len(selected_list) == 0 :
+                st.write('')
+        else :
+               st.dataframe(df[selected_list])
+
+
+
+
+
 
 
 
