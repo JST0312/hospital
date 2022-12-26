@@ -12,7 +12,11 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def main():
         pass
-        
+primaryColor="red"
+backgroundColor="red"
+secondaryBackgroundColor="red"
+textColor="red"
+font="sans serif"      
         
         
 menu =['Home','Data','EDA','Map']
@@ -63,6 +67,7 @@ elif choice =='EDA' :
 
 
 elif choice == 'Map' :
+        st.subheader('병원 분포 맵')
         df = pd.read_csv('data/hospcsv.csv')
         df=df.rename(columns={'위도':'lat','경도':'lon'})
         df2 = df.loc[ : , ['lat','lon']]
@@ -72,10 +77,6 @@ elif choice == 'Map' :
 
 
         df = pd.read_csv('data/hospcsv.csv')
-        column_list = df.columns[1:5]
-        st.subheader('컬럼 별 히스토그램')
-        histogram_column = st.selectbox('히스토그램 확인할 컬럼을 선택하세요',column_list)
-        my_bins = st.number_input('빈의 갯수를 입력하세요.',10,value = 10,step=1)
         st.subheader('각 지역별 병원 차트')
         fig6 = px.pie(df, '시군명',  title='병원 차트')
         st.plotly_chart(fig6)
